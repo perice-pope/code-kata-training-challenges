@@ -13,19 +13,22 @@
 
 
 decodeMorse = function(morseCode){
-  return morseCode.split('   ').map(word => word.split(' ').map(code => (MORSE_CODE[code] || '')).join('')).join(' ').trim();
+  return morseCode.split('   ').map(word => word.split(' ').map(code => (MORSE_CODE[code] || '')).join('')).join(' ').trim(); 
 }
 
 decodeMorse = function(morseCode){
-  // splits words at 3 spaces
-  return morseCode.split('   ').map(codedWord => {
-    // split codedWord into individual codes
-    return codedWord.split(' ').reduce((word, code) => {
-      // convert code to letter/digital/symbol
-      return word + (MORSE_CODE[code] || '');
-    }, ''); // join letters to a single word
-  }).join(' ').trim(); // join all words into a single sentence
+  // split words at 3 spaces 
+  return morseCode.split('   ').map(word => {
+    // split word into indivisual codes 
+    return word.split(' ').map(code => {
+      // convert code to letter/digital/symbol 
+      return MORSE_CODE[code]; 
+    }).join(''); //join letters to a single word 
+  }).join(' '); // join all words into a single sentence
 }
+
+
+// this one passes all the cases !!! 
 
 decodeMorse = function(morseCode){
   // splits words at 3 spaces
