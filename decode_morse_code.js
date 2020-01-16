@@ -13,20 +13,27 @@
 
 
 decodeMorse = function(morseCode){
-    //your code here
-    var words = (morseCode).split('  ');
-    var letters = words.map((w) => w.split(' '));
-    var decoded = [];
-  
-    for(var i = 0; i < letters.length; i++){
-      decoded[i] = [];
-      for(var x = 0; x < letters[i].length; x++){
-          if(MORSE_CODE[letters[i][x]]){
-              decoded[i].push( MORSE_CODE[letters[i][x]] );
-          }
-      }
-    }
-  
-    return decoded.map(arr => arr.join('')).join(' ');
-  
-  }
+  return morseCode.split('   ').map(word => word.split(' ').map(code => (MORSE_CODE[code] || '')).join('')).join(' ').trim();
+}
+
+decodeMorse = function(morseCode){
+  // splits words at 3 spaces
+  return morseCode.split('   ').map(codedWord => {
+    // split codedWord into individual codes
+    return codedWord.split(' ').reduce((word, code) => {
+      // convert code to letter/digital/symbol
+      return word + (MORSE_CODE[code] || '');
+    }, ''); // join letters to a single word
+  }).join(' ').trim(); // join all words into a single sentence
+}
+
+decodeMorse = function(morseCode){
+  // splits words at 3 spaces
+  return morseCode.split('   ').reduce((sentence, codedWord, index, codeWordArray) => {
+    // split codedWord into individual codes
+    return sentence + codedWord.split(' ').reduce((word, code) => {
+      // convert code to letter/digital/symbol
+      return word + (MORSE_CODE[code] || '');
+    }, '') + (index < codeWordArray.length - 1 ? ' ' : '');
+  }, '').trim();
+}
