@@ -8,3 +8,22 @@ function createPhoneNumber(numbers){
     numbers.splice(9, 0, '-');
     return numbers.join('');
   }
+
+  // refactor 
+
+  function createPhoneNumber(numbers){
+    var format = "(xxx) xxx-xxxx";
+    
+    for(var i = 0; i < numbers.length; i++)
+    {
+      format = format.replace('x', numbers[i]);
+    }
+    
+    return format;
+  }
+
+  // one-liner 
+
+  function createPhoneNumber(numbers){
+    return numbers.reduce((p,c) => p.replace('x',c), "(xxx) xxx-xxxx");
+ }
